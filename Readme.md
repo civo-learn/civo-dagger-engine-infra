@@ -96,7 +96,9 @@ object_store_size  = 500             # Cache storage in GB
 ## Infrastructure Components
  Infrastructure Components
 Here's an overview of the infrastructure deployed in Civo:
-mermaidCopygraph TB
+
+```mermaid
+graph TB
     subgraph Civo["Civo Cloud"]
         subgraph Network["Dagger Network"]
             subgraph K8s["Kubernetes Cluster"]
