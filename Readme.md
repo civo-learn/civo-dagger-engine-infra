@@ -115,6 +115,12 @@ Remove all resources:
 ```bash
 terraform destroy
 ```
+## Note
+
+The Terraform state is stored locally by default. For production environments,
+it is recommended to store the state remotely using a backend such as a remote
+object storage. Modify the Terraform configuration to suit your production
+needs.
 
 ## Support & Community
 
