@@ -1,4 +1,4 @@
-module dagger/dagger
+module github.com/civo-learn/civo-dagger-engine-infra/dagger
 
 go 1.23.2
 

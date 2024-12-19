@@ -16,7 +16,8 @@ package main
 
 import (
 	"context"
-	"dagger/dagger/internal/dagger"
+
+	"github.com/civo-learn/civo-dagger-engine-infra/dagger/internal/dagger"
 )
 
 type Dagger struct{}
