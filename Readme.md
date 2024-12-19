@@ -82,7 +82,6 @@ dagger query <<EOF
 }
 EOF
 ```
-
 ## Customization
 
 Modify `terraform.tfvars` or set variables during apply:
@@ -95,6 +94,45 @@ object_store_size  = 500             # Cache storage in GB
 ```
 
 ## Infrastructure Components
+ Infrastructure Components
+Here's an overview of the infrastructure deployed in Civo:
+mermaidCopygraph TB
+    subgraph Civo["Civo Cloud"]
+        subgraph Network["Dagger Network"]
+            subgraph K8s["Kubernetes Cluster"]
+                subgraph DaggerNS["Dagger Namespace"]
+                    Engine["Dagger Engine Pod"]
+                    Secret["Cache Config Secret"]
+                end
+                Nodes["Worker Nodes (x3)"]
+            end
+            FW["Firewall"]
+        end
+        
+        subgraph Storage["Object Storage"]
+            Bucket["Dagger Cache Bucket"]
+            Creds["Object Store Credentials"]
+        end
+    end
+    
+    %% Connections
+    Engine -->|"Read/Write Cache"| Bucket
+    Engine -->|"Uses"| Secret
+    Secret -.->|"References"| Creds
+    FW -->|"Controls Access to"| K8s
+    
+    %% Styling
+    classDef civoBox fill:#326CE5,stroke:#fff,stroke-width:2px,color:#fff
+    classDef k8sBox fill:#326CE5,stroke:#fff,stroke-width:2px,color:#fff
+    classDef storageBox fill:#FFA500,stroke:#fff,stroke-width:2px,color:#fff
+    
+    class Civo,Network civoBox
+    class K8s,DaggerNS k8sBox
+    class Storage,Bucket storageBox
+```
+
+The infrastructure consists of:
+
 
 - **Kubernetes Cluster**: Runs the Dagger Engine
 - **Object Storage**: Persistent cache for build artifacts
